@@ -34,23 +34,23 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room village, road, thieves, dragon, castle;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        village = new Room("in the main village where you grew up");
+        road = new Room("on the fierce road of glory that leads to the castle");
+        thieves = new Room("facing a pack of thieves threatening your journey");
+        dragon = new Room(" facing a fiery dragon with murderous intent");
+        castle = new Room("at the big cobblestone castle which holds the lovely princess");
         
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        village.setExits(null, road, null, null);
+        road.setExits(null, thieves, null, village);
+        thieves.setExits(null, village, null, dragon);
+        dragon.setExits(null, castle, null, null);
+        castle.setExits(null, village, null, dragon);
 
-        currentRoom = outside;  // start game outside
+        currentRoom = village;  // start game in the village
     }
 
     /**
@@ -208,5 +208,23 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    private void printLocationInfo()
+    {
+        System.out.println("You are " + currentRoom.getDescription());
+        System.out.print("Exits: ");
+        if(currentRoom.northExit != null) {
+            System.out.print("north ");
+        }
+        if(currentRoom.eastExit != null) {
+            System.out.print("east ");
+        }
+        if(currentRoom.southExit != null) {
+            System.out.print("south ");
+        }
+        if(currentRoom.westExit != null) {
+            System.out.print("west ");
+        }
+        System.out.println();
     }
 }
